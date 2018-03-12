@@ -11,6 +11,9 @@ public class Entity implements Move{
         this.height=height;
     }
 
+    public int getX(){return x;}
+    public int getY(){return y;}
+
     @Override
     public void move() {
 
@@ -23,8 +26,8 @@ public class Entity implements Move{
 
     @Override
     public void setPosition(int x, int y){
-        this.x=x;
-        this.y=y;
+        this.x=x-width/2;
+        this.y=y-height/2;
     }
 
     @Override
