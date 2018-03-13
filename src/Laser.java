@@ -6,7 +6,7 @@ public class Laser extends Entity{
     private int type;
 
     public Laser(Player player){
-        super(Color.GREEN,player.getX(),player.getY(),10,5);
+        super(Color.GREEN,player.getX()+player.getWidth()/4,player.getY(),10,5);
         type=0;
     }
 
@@ -15,12 +15,17 @@ public class Laser extends Entity{
         type=1;
     }
 
+    public int getType(){return type;}
+
     @Override
-    public void move(){
+    public void move(int boardWidth,int boardHeight){
         if(type==0)
             this.y-=SPEED;
         else if(type==1)
             this.y+=SPEED;
+
+        if(y<0||y+height>boardHeight)
+            toRemove=true;
     }
 
     @Override
