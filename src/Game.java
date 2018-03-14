@@ -23,12 +23,19 @@ public class Game extends JFrame{
                 super.keyPressed(e);
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
                     board.shootLaser();
+                }if(e.getKeyCode()==KeyEvent.VK_LEFT){
+                    Data.setPLeft(true);
+                }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+                    Data.setPRight(true);
                 }
             }
             @Override
             public void keyReleased(KeyEvent e){
                 super.keyReleased(e);
-
+                if(e.getKeyCode()==KeyEvent.VK_RIGHT)
+                    Data.setPRight(false);
+                if(e.getKeyCode()==KeyEvent.VK_LEFT)
+                    Data.setPLeft(false);
             }
         });
 

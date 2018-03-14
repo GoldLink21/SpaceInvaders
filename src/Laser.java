@@ -6,12 +6,12 @@ public class Laser extends Entity{
     private int type;
 
     public Laser(Player player){
-        super(Color.GREEN,player.getX()+player.getWidth()/4,player.getY(),10,5);
+        super(Color.GREEN,player.getX()+player.getWidth()/4,player.getY(),5,15);
         type=0;
     }
 
     public Laser(Enemy enemy){
-        super(Color.CYAN,enemy.getX(),enemy.getY(),10,5);
+        super(Color.CYAN,enemy.getX()+enemy.getWidth()/4,enemy.getY(),5,5);
         type=1;
     }
 

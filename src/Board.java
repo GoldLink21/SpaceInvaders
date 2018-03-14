@@ -24,7 +24,7 @@ public class Board extends JPanel implements ActionListener{
 
     public void setup(){
         entities.add(0,new Player(boardWidth/2,boardHeight/2,15,15));
-        for(int i=0;i<5;i++){
+        for(int i=0;i<15;i++){
             entities.add(new Enemy(i*20,15));
         }
         enemyLast = System.currentTimeMillis();
@@ -75,6 +75,15 @@ public class Board extends JPanel implements ActionListener{
         enemyLaser();
         for(int i=0;i<entities.size();i++)
             entities.get(i).move(getWidth(),getHeight());
+        if(Data.isToSwitch()) {
+            Data.setToSwitch(false);
+            Data.switchDirection();
+            for(int i=1;i<entities.size();i++){
+                if(entities.get(i) instanceof Enemy)
+                    ((Enemy) entities.get(i)).moveDown();
+            }
+        }
+        removeEntities();
         repaint();
     }
 }
