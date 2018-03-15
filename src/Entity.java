@@ -17,7 +17,16 @@ public class Entity implements Move{
     public int getWidth(){return width;}
     public int getHeight(){return height;}
 
+    public void setToRemove(){toRemove = true;}
+
     public boolean toRemove(){return toRemove;}
+
+    public boolean collidesWith(Entity other){
+        if(getBounds().intersects(other.getBounds()))
+            return true;
+        else
+            return false;
+    }
 
     @Override
     public void move(int boardWidth,int boardHeight) {
@@ -37,6 +46,6 @@ public class Entity implements Move{
 
     @Override
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle(x,y,width,height);
     }
 }

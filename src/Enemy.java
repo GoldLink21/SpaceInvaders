@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Enemy extends Entity{
-    private final int SPEED = 5,downAmount = 5;
+    private final int SPEED = 4,downAmount = 15;
 
     public Enemy(int x,int y){
         super(Color.BLUE,x,y,15,15);
@@ -15,9 +15,6 @@ public class Enemy extends Entity{
         g.drawOval(x,y,width,height);
     }
 
-    //@Override
-    //public void setPosition(int x,int y){ }
-
     @Override
     public void move(int boardWidth, int boardHeight){
         if(Data.isEnemyRight())
@@ -25,9 +22,9 @@ public class Enemy extends Entity{
         else
             x-=SPEED;
 
-        if(x<0&&!Data.isToSwitch()&&!Data.enemyRight) {
+        if(x<0&&!Data.isToSwitch()&&!Data.isEnemyRight()) {
             Data.setToSwitch(true);
-        }else if(x+width>boardWidth&&!Data.isToSwitch()&&Data.enemyRight) {
+        }else if(x+width>boardWidth&&!Data.isToSwitch()&&Data.isEnemyRight()) {
             Data.setToSwitch(true);
         }
     }

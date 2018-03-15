@@ -6,7 +6,7 @@ public class Laser extends Entity{
     private int type;
 
     public Laser(Player player){
-        super(Color.GREEN,player.getX()+player.getWidth()/4,player.getY(),5,15);
+        super(Color.GREEN,player.getX()+player.getWidth()/4,player.getY()-20,5,15);
         type=0;
     }
 

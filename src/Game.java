@@ -4,9 +4,7 @@ import java.awt.event.KeyEvent;
 
 public class Game extends JFrame{
 
-    Board board;
-
-    public boolean left,right;
+    static Board board;
 
     public Game(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -22,27 +20,36 @@ public class Game extends JFrame{
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                    board.shootLaser();
+                    Data.setSpacePressed(true);
+                    if(Data.isPlay())
+                        board.shootLaser();
                 }if(e.getKeyCode()==KeyEvent.VK_LEFT){
                     Data.setPLeft(true);
-                }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+                }if(e.getKeyCode()==KeyEvent.VK_RIGHT){
                     Data.setPRight(true);
                 }
             }
             @Override
-            public void keyReleased(KeyEvent e){
+            public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                if(e.getKeyCode()==KeyEvent.VK_RIGHT)
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
                     Data.setPRight(false);
-                if(e.getKeyCode()==KeyEvent.VK_LEFT)
+                }if(e.getKeyCode()==KeyEvent.VK_LEFT) {
                     Data.setPLeft(false);
+                }if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+                    Data.setSpacePressed(false);
+                    if (Data.isMenu() || Data.isEnd()) {
+                        Data.toggleMenu();
+                        board.setup();
+                    }
+                }if(e.getKeyCode()==KeyEvent.VK_P&&!(Data.isMenu()||Data.isEnd()))
+                    Data.togglePause();
             }
-        });
 
+        });
     }
 
     public static void main(String[]args){
-        Game game = new Game();
-        game.board.setup();
+        new Game();
     }
 }
