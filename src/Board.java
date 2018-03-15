@@ -63,9 +63,11 @@ public class Board extends JPanel implements ActionListener{
     }
 
     public boolean checkEnd(){
-        if(Data.getLives()<1)
+        if(Data.getLives()<1) {
+            for(int i=0;i<entities.size();i++)
+                entities.remove(i);
             return true;
-        for(int i=1;i<entities.size();i++)
+        }for(int i=1;i<entities.size();i++)
             if(entities.get(i)instanceof Enemy)
                 return false;
         return true;
@@ -160,6 +162,7 @@ public class Board extends JPanel implements ActionListener{
             }
             checkCollisions();
             removeEntities();
+            getEnemyY();
             if(checkEnd())
                 Data.toggleEnd();
         }

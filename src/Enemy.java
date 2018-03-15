@@ -30,7 +30,8 @@ public class Enemy extends Entity{
     }
 
     public void moveDown(){
-        y+=downAmount;
+        if(Data.getEnemyLowY()<375)
+            y+=downAmount;
         if(Data.isEnemyRight())
             x-=10;
         else
