@@ -24,10 +24,14 @@ public class Board extends JPanel implements ActionListener{
 
     }
 
-    public void setup(){
-        for(int i=0;i<entities.size();i++){
-            entities.remove(i);
+    public void deleteEntities(){
+        while(entities.size()>0){
+            entities.remove(0);
         }
+    }
+
+    public void setup(){
+        deleteEntities();
         Data.setLives(4);
         entities.add(0,new Player(boardWidth/2,boardHeight-40,15,15));
         for(int i=0;i<ROWS;i++) {
@@ -136,7 +140,7 @@ public class Board extends JPanel implements ActionListener{
             for (int i = 0; i < entities.size(); i++)
                 entities.get(i).paint(g);
             g.setFont(subTitleFont);
-            g.drawString("Lives: "+Integer.toString(Data.getLives()),10,15);
+            g.drawString("Lives: "+Integer.toString(Data.getLives()),10,20);
         }else if(Data.isMenu()){
             printCentered("Menu",titleFont,getHeight()/4,g);
         }else if(Data.isPause()){

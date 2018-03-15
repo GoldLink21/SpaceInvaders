@@ -39,8 +39,9 @@ public class Game extends JFrame{
                 }if(e.getKeyCode()==KeyEvent.VK_SPACE) {
                     Data.setSpacePressed(false);
                     if (Data.isMenu() || Data.isEnd()) {
+                        if(Data.isMenu())
+                            board.setup();
                         Data.toggleMenu();
-                        board.setup();
                     }
                 }if(e.getKeyCode()==KeyEvent.VK_P&&!(Data.isMenu()||Data.isEnd()))
                     Data.togglePause();
