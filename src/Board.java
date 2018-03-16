@@ -33,7 +33,7 @@ public class Board extends JPanel implements ActionListener{
     public void setup(){
         deleteEntities();
         Data.setLives(4);
-        entities.add(0,new Player(boardWidth/2,boardHeight-40,15,15));
+        entities.add(0,new Player(boardWidth/2,boardHeight-40,36,20));
         for(int i=0;i<ROWS;i++) {
             for (int j = 0; j < COL; j++) {
                 entities.add(new Enemy(j * 25, (i + 1) * 25));
@@ -142,11 +142,18 @@ public class Board extends JPanel implements ActionListener{
             g.setFont(subTitleFont);
             g.drawString("Lives: "+Integer.toString(Data.getLives()),10,20);
         }else if(Data.isMenu()){
-            printCentered("Menu",titleFont,getHeight()/4,g);
+            printCentered("Space Invaders",titleFont,getHeight()/4,g);
+            printCentered("Press space to play",subTitleFont,getHeight()/3,g);
         }else if(Data.isPause()){
-            printCentered("Pause",titleFont,getHeight()/4,g);
+            printCentered("You have paused",titleFont,getHeight()/4,g);
+            printCentered("Press p to resume",subTitleFont,getHeight()/3,g);
         }else if(Data.isEnd()){
-            printCentered("End",titleFont,getHeight()/4,g);
+            printCentered("Game over",titleFont,getHeight()/4,g);
+            if(Data.getLives()<=0){
+                printCentered("You ran out of lives, you lose",subTitleFont,getHeight()/3,g);
+            }else{
+                printCentered("You defeated all the evil aliens!",subTitleFont,getHeight()/3,g);
+            }
         }
 
     }

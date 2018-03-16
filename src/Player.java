@@ -11,22 +11,24 @@ public class Player extends Entity {
     @Override
     public void paint(Graphics g){
         //Lower bound
-        g.setColor(color);
-        g.fillRect(x-width/2,y+3*height/4,2*width,height/4);
+        g.setColor(Color.GRAY);
+        g.fillRect(x,y+3*height/4,width,height/4);
         g.setColor(Color.WHITE);
-        g.drawRect(x-width/2,y+3*height/4,2*width,height/4);
+        g.drawRect(x,y+3*height/4,width,height/4);
 
         //Center Box
         g.setColor(color);
-        g.fillRect(x,y,width,height);
+        g.fillRect(x+width/4,y+height/5,width/2,height);
         g.setColor(Color.WHITE);
-        g.drawRect(x,y,width,height);
+        g.drawRect(x+width/4,y+height/5,width/2,height);
+
 
         //Vertical Box
-        g.setColor(color);
-        g.fillRect(x+width/2,y+height/2,width/4,3*height/2);
+        g.setColor(Color.GRAY);
+        g.fillRect(x+(7*width/16),y-height/4,width/8,3*height/2);
         g.setColor(Color.WHITE);
-        g.drawRect(x+width/2,y+height/2,width/4,3*height/2);
+        g.drawRect(x+(7*width/16),y-height/4,width/8,3*height/2);
+
 
     }
 
