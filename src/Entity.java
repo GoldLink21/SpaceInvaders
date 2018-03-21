@@ -29,14 +29,10 @@ public class Entity implements Move{
     }
 
     @Override
-    public void move(int boardWidth,int boardHeight) {
-
-    }
+    public void move(int boardWidth,int boardHeight){}
 
     @Override
-    public void paint(Graphics g) {
-
-    }
+    public void paint(Graphics g) {}
 
     @Override
     public void setPosition(int x, int y){
@@ -45,7 +41,5 @@ public class Entity implements Move{
     }
 
     @Override
-    public Rectangle getBounds() {
-        return new Rectangle(x,y,width,height);
-    }
+    public Rectangle getBounds(){return new Rectangle(x,y,width,height);}
 }

@@ -9,6 +9,7 @@ public class Game extends JFrame{
     public Game(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setFocusable(true);
+        setResizable(false);
         setVisible(true);
         setTitle("Space Invaders");
         board = new Board();
@@ -36,7 +37,7 @@ public class Game extends JFrame{
                     Data.setPRight(false);
                 }if(e.getKeyCode()==KeyEvent.VK_LEFT) {
                     Data.setPLeft(false);
-                }if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+                }if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                     Data.setSpacePressed(false);
                     if (Data.isMenu() || Data.isEnd()) {
                         if(Data.isMenu())

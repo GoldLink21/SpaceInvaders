@@ -5,19 +5,25 @@ public class Laser extends Entity{
 
     private int type;
 
-    private int[][]laserCoords={{x,x+pWidth,x+pWidth/2},{y+pHeight,y+pHeight,y}};
-
     public Laser(Player player){
-        super(Color.GREEN,player.getX()+(player.getWidth()/2)-3,player.getY()-20,5,15);
+        super(Color.GREEN,player.getX()+(player.getWidth()/2),player.getY()-10,8,15);
         type=0;
     }
 
     public Laser(Enemy enemy){
-        super(Color.CYAN,enemy.getX()+enemy.getWidth()/4,enemy.getY(),5,5);
+        super(Color.CYAN,enemy.getX()+enemy.getWidth()/2,enemy.getY(),8,8);
         type=1;
     }
 
     public int getType(){return type;}
+
+    @Override
+    public Rectangle getBounds(){
+        if(type==0)
+            return new Rectangle(x-width/2,y-height,width,height);
+        else
+            return new Rectangle(x-width/2,y,width,height);
+    }
 
     @Override
     public void move(int boardWidth,int boardHeight){
@@ -32,12 +38,15 @@ public class Laser extends Entity{
 
     @Override
     public void paint(Graphics g){
-        g.setColor(color);
-        
-        g.fillRect(x,y,width,height);
-        g.setColor(Color.WHITE);
-        g.drawRect(x,y,width,height);
+        int nPoints = 3;
+        int xPoints[] = {x,x-width/2,x+width/2};
+        int yPoints[]={y+height,y,y};
 
-        //g.fillPolygon(laserCoords[0],laserCoords[1],3);
+        if(type==0) yPoints[0]=y-height;
+
+        g.setColor(color);
+        g.fillPolygon(xPoints, yPoints, nPoints);
+        g.setColor(Color.WHITE);
+        g.drawPolygon(xPoints, yPoints, nPoints);
     }
 }

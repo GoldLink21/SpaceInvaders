@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener{
-    private int boardWidth = 700, boardHeight = 500;
+    private int boardWidth = 800, boardHeight = 600;
 
     private int pFireDelay = 350,eFireDelay = 800;
 
-    private final int ROWS = 5,COL = 15;
+    private final int ROWS = 6,COL = 16,GAP_W = 30,GAP_H = 25;
 
     Timer timer;
     ArrayList<Entity>entities = new ArrayList<>();
@@ -24,19 +24,20 @@ public class Board extends JPanel implements ActionListener{
 
     }
 
-    public void deleteEntities(){
+    private void deleteEntities(){
         while(entities.size()>0){
             entities.remove(0);
         }
     }
 
+
     public void setup(){
         deleteEntities();
         Data.setLives(4);
-        entities.add(0,new Player(boardWidth/2,boardHeight-40,36,20));
+        entities.add(0,new Player(boardWidth/2,boardHeight-60));
         for(int i=0;i<ROWS;i++) {
             for (int j = 0; j < COL; j++) {
-                entities.add(new Enemy(j * 25, (i + 1) * 25));
+                entities.add(new Enemy((j * GAP_H)+i%2*GAP_W/2, (i + 1) * GAP_W));
             }
         }
         enemyLast = System.currentTimeMillis();
@@ -50,7 +51,7 @@ public class Board extends JPanel implements ActionListener{
         }
     }
 
-    public void enemyLaser(){
+    private void enemyLaser(){
         enemyCurrent = System.currentTimeMillis();
         if(enemyCurrent-enemyLast>(eFireDelay/2*Math.random())+eFireDelay/2){
             if(entities.size()>1) {
@@ -66,7 +67,7 @@ public class Board extends JPanel implements ActionListener{
         }
     }
 
-    public boolean checkEnd(){
+    private boolean checkEnd(){
         if(Data.getLives()<1) {
             for(int i=0;i<entities.size();i++)
                 entities.remove(i);
@@ -77,14 +78,14 @@ public class Board extends JPanel implements ActionListener{
         return true;
     }
 
-    public void removeEntities(){
+    private void removeEntities(){
         if(entities.size()>1)
             for(int i=1;i<entities.size();i++)
                 if(entities.get(i).toRemove())
                     entities.remove(i);
     }
 
-    public void checkCollisions(){
+    private void checkCollisions(){
 
         //Player Laser and Enemies
         for(int i=1;i<entities.size();i++) {
@@ -110,7 +111,7 @@ public class Board extends JPanel implements ActionListener{
 
     }
 
-    public void getEnemyY(){
+    private void getEnemyY(){
         Data.setEnemyLowY(0);
         for(int i=1;i<entities.size();i++){
             if(entities.get(i)instanceof Enemy){
@@ -140,21 +141,27 @@ public class Board extends JPanel implements ActionListener{
             for (int i = 0; i < entities.size(); i++)
                 entities.get(i).paint(g);
             g.setFont(subTitleFont);
+            g.setColor(Color.WHITE);
             g.drawString("Lives: "+Integer.toString(Data.getLives()),10,20);
         }else if(Data.isMenu()){
             printCentered("Space Invaders",titleFont,getHeight()/4,g);
-            printCentered("Press space to play",subTitleFont,getHeight()/3,g);
+            printCentered("Press enter to play",subTitleFont,getHeight()/3,g);
         }else if(Data.isPause()){
             printCentered("You have paused",titleFont,getHeight()/4,g);
             printCentered("Press p to resume",subTitleFont,getHeight()/3,g);
         }else if(Data.isEnd()){
-            printCentered("Game over",titleFont,getHeight()/4,g);
+            printCentered("Press enter to return to the menu",subTitleFont,getHeight()/2,g);
             if(Data.getLives()<=0){
+                printCentered("Game over",titleFont,getHeight()/4,g);
                 printCentered("You ran out of lives, you lose",subTitleFont,getHeight()/3,g);
             }else{
+                printCentered("You Won!!",titleFont,getHeight()/4,g);
                 printCentered("You defeated all the evil aliens!",subTitleFont,getHeight()/3,g);
             }
         }
+
+
+
 
     }
 
@@ -162,14 +169,14 @@ public class Board extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(Data.isPlay()) {
             enemyLaser();
-            for (int i = 0; i < entities.size(); i++)
+            for (int i = 0; i < entities.size(); i++) {
                 entities.get(i).move(getWidth(), getHeight());
-            if (Data.isToSwitch()) {
+            }if(Data.isToSwitch()) {
                 Data.setToSwitch(false);
                 Data.switchDirection();
                 for (int i = 1; i < entities.size(); i++)
                     if (entities.get(i) instanceof Enemy)
-                        ((Enemy) entities.get(i)).moveDown();
+                        ((Enemy) entities.get(i)).moveDown(getHeight());
             }
             checkCollisions();
             removeEntities();

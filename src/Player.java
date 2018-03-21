@@ -4,32 +4,27 @@ public class Player extends Entity {
 
     private final int SPEED = 5;
 
-    public Player(int x,int y,int width,int height){
-        super(Color.RED,x,y,width,height);
+    public Player(int x,int y){super(Color.RED,x,y,30,30);}
+
+    private void drawAndFillPoly(int[]x,int[]y,int n,Color color,Graphics g){
+        g.setColor(color);
+        g.fillPolygon(x,y,n);
+        g.setColor(Color.WHITE);
+        g.drawPolygon(x,y,n);
     }
 
     @Override
     public void paint(Graphics g){
-        //Lower bound
-        g.setColor(Color.GRAY);
-        g.fillRect(x,y+3*height/4,width,height/4);
-        g.setColor(Color.WHITE);
-        g.drawRect(x,y+3*height/4,width,height/4);
 
-        //Center Box
-        g.setColor(color);
-        g.fillRect(x+width/4,y+height/5,width/2,height);
-        g.setColor(Color.WHITE);
-        g.drawRect(x+width/4,y+height/5,width/2,height);
+        //Wings
+        int xP2[]={x+width/2,x,x+width/2,x+width};
+        int yP2[]={y+height/2,y+5*height/4,y+height,y+5*height/4};
+        drawAndFillPoly(xP2,yP2,4,Color.GRAY,g);
 
-
-        //Vertical Box
-        g.setColor(Color.GRAY);
-        g.fillRect(x+(7*width/16),y-height/4,width/8,3*height/2);
-        g.setColor(Color.WHITE);
-        g.drawRect(x+(7*width/16),y-height/4,width/8,3*height/2);
-
-
+        //Body
+        int xP1[] = {x+width/2,x+width/4,x+3*width/4};
+        int yP1[]={y,y+height,y+height};
+        drawAndFillPoly(xP1,yP1,3,color,g);
     }
 
     @Override

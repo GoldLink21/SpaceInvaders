@@ -1,9 +1,9 @@
 import java.awt.*;
 
 public interface Move {
-    public void move(int boardWidth,int boardHeight);
-    public void paint(Graphics g);
-    public void setPosition(int x,int y);
-    public Rectangle getBounds();
+    void move(int boardWidth,int boardHeight);
+    void paint(Graphics g);
+    void setPosition(int x,int y);
+    Rectangle getBounds();
 
 }
